@@ -7,17 +7,18 @@ function App() {
 
   const handleAddTask = () => {
     const task = newTask.current.value ;
-    const currentDate = new Date();
-
-    const currentTime = currentDate.toLocaleTimeString();
-    const theTask = {
-      completed : false ,
-      time : currentTime ,
-      text : task
+    if (task !== ""){
+      const currentDate = new Date();
+  
+      const currentTime = currentDate.toLocaleTimeString();
+      const theTask = {
+        completed : false ,
+        time : currentTime ,
+        text : task
+      }
+      setTasks([...tasks , theTask]);
+      newTask.current.value = '';
     }
-    setTasks([...tasks , theTask]);
-    newTask.current.value = '';
-    console.log(tasks)
   }
 
   const handleTaskDone = (index) => {
@@ -40,7 +41,7 @@ function App() {
             {tasks.map(({completed ,time, text}, index) => {
               return (
                 <div key={index} className='flex justify-between items-center m-1 my-2'>
-                  <li onClick={() => handleTaskDone(index)} className={`cursor-pointer list-none hover:list-disc hover:list-inside w-64 sm:w-80 md:w-96 break-words p-1 ${completed ? 'line-through' : ''}`}>{text}</li>
+                  <li onClick={() => handleTaskDone(index)} className={`cursor-pointer list-none hover:list-disc hover:list-inside w-48 sm:w-80 md:w-96 break-words p-1 ${completed ? 'line-through' : ''}`}>{text}</li>
                   <span className='p-2 text-xs text-cyan-400'>{time}</span>
                   <span onClick={()=>handleDeleteTask(index)} className='text-cyan-400 p-1 border-2 border-cyan-400 rounded-lg hover:border-red-500 hover:text-red-500 duration-700 cursor-pointer'>Delete</span>
                 </div>
